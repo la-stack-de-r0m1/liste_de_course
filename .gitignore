@@ -1,0 +1,6 @@
+settings.json
+
+venv
+*.pyc
+*/*pyc
+*/*/*.pyc
