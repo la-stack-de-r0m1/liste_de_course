@@ -22,4 +22,10 @@ class Stock:
     def get(self, good_name):
         return self.goods[good_name] if self.has(good_name) else 0
 
+    def take(self, good_name):
+        if self.has(good_name=good_name):
+            if self.goods[good_name]:
+                self.goods[good_name] -= 1
+
+
     

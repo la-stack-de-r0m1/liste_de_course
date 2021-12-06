@@ -63,4 +63,22 @@ class TestStock(unittest.TestCase):
         s = Stock()
         s.add({'name': 'flour'})
         nb_flour = s.get(good_name='flour')
-        self.assertEqual(1, nb_flour)  
+        self.assertEqual(1, nb_flour)
+
+    def test_remove_flour(self):
+        s = Stock()
+        s.add({'name': 'flour'})
+
+        nb_flour = s.get(good_name='flour')
+        self.assertEqual(1, nb_flour)
+
+        s.take('flour')
+        self.assertEqual(0, s.get(good_name='flour'))
+
+    def test_stock_dont_go_negative(self):
+        s = Stock()
+        s.add({'name': 'flour'})
+        s.take('flour')
+        s.take('flour')
+        self.assertEqual(0, s.get(good_name='flour'))
+        
