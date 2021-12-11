@@ -1,5 +1,7 @@
 import unittest
-from src.stock.inventory_good import InventoryGood, CommonUnits, NegativeQuantityException, BadGoods
+from src.stock.inventory_good import InventoryGood, CommonUnits
+from src.stock.stock_exceptions import NegativeQuantityException, BadGoods
+
 
 class TestInventoryGood(unittest.TestCase):
     def __init__(self, methodName: str) -> None:
@@ -11,7 +13,6 @@ class TestInventoryGood(unittest.TestCase):
         return super().setUp()
 
     def test_ctor(self):
-
         good = InventoryGood('rice', CommonUnits.KiloGram, 1.5)
 
         self.assertEqual(1.5, good.quantity)

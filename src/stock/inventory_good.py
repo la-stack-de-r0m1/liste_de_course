@@ -1,18 +1,11 @@
 from dataclasses import dataclass
 from enum import Enum
+from src.stock.stock_exceptions import NegativeQuantityException, BadGoods
 
 class CommonUnits(Enum):
     NumberOf = ''
     KiloGram = 'kg',
     Gram = 'g'
-
-class NegativeQuantityException(Exception):
-    def __init__(self, *args: object) -> None:
-        super().__init__(*args)
-
-class BadGoods(Exception):
-    def __init__(self, *args: object) -> None:
-        super().__init__(*args)
 
 def is_positive(func):
     def inner(self, quantity: float):
