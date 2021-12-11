@@ -1,5 +1,5 @@
 import unittest
-from src.stock.inventory_good import InventoryGood, CommonUnits, NegativeQuantityException
+from src.stock.inventory_good import InventoryGood, CommonUnits, NegativeQuantityException, BadGoods
 
 class TestInventoryGood(unittest.TestCase):
     def __init__(self, methodName: str) -> None:
@@ -49,9 +49,18 @@ class TestInventoryGood(unittest.TestCase):
         self.assertEqual(0.0, self.rice.quantity)
 
     def test_add_operator(self):
-        self.rice += InventoryGood('rive', 'kg', 0.5)
+        self.rice += InventoryGood('rice', 'kg', 0.5)
         self.assertEqual(1.5, self.rice.quantity)
 
     def test_sub_operator(self):
-        self.rice -= InventoryGood('rive', 'kg', 0.5)
+        self.rice -= InventoryGood('rice', 'kg', 0.5)
         self.assertEqual(0.5, self.rice.quantity)
+
+    def test_add_raises_on_different_good_type(self):
+        with self.assertRaises(BadGoods) as ctx:
+            self.rice += InventoryGood('flour', 'kg', 0.5)
+
+    def test_sub_raises_on_different_good_type(self):
+        with self.assertRaises(BadGoods) as ctx:
+            self.rice -= InventoryGood('flour', 'kg', 0.5)
+        

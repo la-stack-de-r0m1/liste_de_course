@@ -10,11 +10,22 @@ class NegativeQuantityException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
 
+class BadGoods(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
 def is_positive(func):
     def inner(self, quantity: float):
         if quantity < 0:
             raise NegativeQuantityException()
         return func(self, quantity)
+    return inner
+
+def type_verif(func):
+    def inner(self, other):
+        if self.name != other.name:
+            raise BadGoods()
+        return func(self, other)
     return inner
 
 @dataclass
@@ -31,10 +42,12 @@ class InventoryGood:
         self.unit = unit
         self.quantity = quantity
 
+    @type_verif
     def __add__(self, other):
         self.add(other.quantity)
         return self
 
+    @type_verif
     def __sub__(self, other):
         self.take(other.quantity)
         return self
