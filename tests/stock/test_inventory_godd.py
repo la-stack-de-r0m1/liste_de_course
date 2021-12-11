@@ -48,3 +48,10 @@ class TestInventoryGood(unittest.TestCase):
         self.assertEqual(1.0, taken_quantity)
         self.assertEqual(0.0, self.rice.quantity)
 
+    def test_add_operator(self):
+        self.rice += InventoryGood('rive', 'kg', 0.5)
+        self.assertEqual(1.5, self.rice.quantity)
+
+    def test_sub_operator(self):
+        self.rice -= InventoryGood('rive', 'kg', 0.5)
+        self.assertEqual(0.5, self.rice.quantity)

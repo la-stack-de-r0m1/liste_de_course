@@ -14,7 +14,7 @@ class Stock:
     def add(self, good):
         good_name = good.name
         if self.has(good_name):
-            self.goods[good_name].quantity += good.quantity
+            self.goods[good_name] += good
         else:
             self.create_good(good)
 
@@ -35,7 +35,7 @@ class Stock:
         quantity = good.quantity
         remaining_quantity = self.goods[good.name].quantity
         if remaining_quantity >= quantity:
-            self.goods[good.name].quantity -= quantity
+            self.goods[good.name] -= good
         else:
             quantity = remaining_quantity
             self.goods[good.name].quantity = 0

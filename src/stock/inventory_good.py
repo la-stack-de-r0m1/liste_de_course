@@ -31,6 +31,14 @@ class InventoryGood:
         self.unit = unit
         self.quantity = quantity
 
+    def __add__(self, other):
+        self.add(other.quantity)
+        return self
+
+    def __sub__(self, other):
+        self.take(other.quantity)
+        return self
+
     @is_positive
     def add(self, quantity: float):
         self.quantity += quantity
