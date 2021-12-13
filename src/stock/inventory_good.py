@@ -16,7 +16,7 @@ def is_positive(func):
 
 def type_verif(func):
     def inner(self, other):
-        if self.name != other.name:
+        if not isinstance(other, type(self)) or self.name != other.name:
             raise BadGoods()
         return func(self, other)
     return inner

@@ -64,4 +64,7 @@ class TestInventoryGood(unittest.TestCase):
     def test_sub_raises_on_different_good_type(self):
         with self.assertRaises(BadGoods) as ctx:
             self.rice -= InventoryGood('flour', 'kg', 0.5)
-        
+
+    def test_bad_instance_raise_exception(self):
+        with self.assertRaises(BadGoods):
+            self.rice += 1
