@@ -21,7 +21,7 @@ class TestShoppingList(unittest.TestCase):
     def test_create_new_item_on_list(self):
         shopping_list = ShoppingList('Home')
         
-        shopping_list.add(ShoppingItem('pasta', 42))
+        shopping_list.add(ShoppingItem('pasta', '', 42))
         item = shopping_list.items[0]
 
         self.assertEqual('pasta', item.name)
@@ -30,8 +30,8 @@ class TestShoppingList(unittest.TestCase):
     def test_take_item_from_list(self):
         shopping_list = ShoppingList('Home')
         
-        shopping_list.add(ShoppingItem('pasta', 42))
-        shopping_list.add(ShoppingItem('rice', 21))
+        shopping_list.add(ShoppingItem('pasta', '', 42))
+        shopping_list.add(ShoppingItem('rice', '', 21))
         item = shopping_list.take(0)
 
         self.assertEqual('pasta', item.name)
@@ -40,8 +40,8 @@ class TestShoppingList(unittest.TestCase):
     def test_take_item_remove_from_list(self):
         shopping_list = ShoppingList('Home')
         
-        shopping_list.add(ShoppingItem('pasta', 42))
-        shopping_list.add(ShoppingItem('rice', 21))
+        shopping_list.add(ShoppingItem('pasta', '', 42))
+        shopping_list.add(ShoppingItem('rice', '', 21))
         shopping_list.take(0)
         
         self.assertEqual(1, len(shopping_list.items))

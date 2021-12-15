@@ -1,7 +1,8 @@
 import unittest
-from src.stock.inventory_good import InventoryGood, CommonUnits
-from src.stock.stock_exceptions import NegativeQuantityException, BadGoods
+from src.stock.inventory_good import InventoryGood
+from src.common.item import CommonUnits
 
+from src.common.exceptions import NegativeQuantityException, BadGoods
 
 class TestInventoryGood(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

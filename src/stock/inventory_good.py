@@ -1,11 +1,5 @@
-from dataclasses import dataclass
-from enum import Enum
-from src.stock.stock_exceptions import NegativeQuantityException, BadGoods
-
-class CommonUnits(Enum):
-    NumberOf = ''
-    KiloGram = 'kg',
-    Gram = 'g'
+from src.common.exceptions import BadGoods, NegativeQuantityException
+from src.common.item import Item
 
 def is_positive(func):
     def inner(self, quantity: float):
@@ -21,19 +15,9 @@ def type_verif(func):
         return func(self, other)
     return inner
 
-@dataclass
-class InventoryGood:
-    name: str
-    unit: str
-    quantity: float = 0.0
-
+class InventoryGood(Item):
     def __init__(self, name: str, unit: str, quantity: float) -> None:
-        if quantity < 0:
-            raise NegativeQuantityException()
-
-        self.name = name
-        self.unit = unit
-        self.quantity = quantity
+       super().__init__(name, unit, quantity)
 
     @type_verif
     def __add__(self, other):

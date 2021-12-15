@@ -1,6 +1,5 @@
 from src.stock.inventory_good import InventoryGood
 
-
 class Stock:
     def __init__(self) -> None:
         self.goods = {}
