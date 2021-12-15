@@ -9,3 +9,13 @@ class ShoppingList:
         if not name:
             raise ShoppingListException()
         self.name = name
+        self.items = []
+
+    def add(self, item: ShoppingItem) -> None:
+        self.items.append(item)
+
+    def take(self, index: int) -> ShoppingItem:
+        item = self.items[index]
+        del self.items[index]
+
+        return item
