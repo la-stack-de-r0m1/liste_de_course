@@ -11,8 +11,10 @@ class ShoppingList:
         self.name = name
         self.items = []
 
-    def add(self, item: ShoppingItem) -> None:
+    def add(self, item: ShoppingItem):
         self.items.append(item)
+
+        return self
 
     def take(self, index: int) -> ShoppingItem:
         item = self.items[index]
