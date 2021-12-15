@@ -1,13 +1,16 @@
 from src.shopping.shopping_item import ShoppingItem
+from src.common.loading_list import LoadingList
 
 class ShoppingListException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
 
-class ShoppingList:
-    def __init__(self, name) -> None:
+class ShoppingList(LoadingList):
+    def __init__(self, name, persister) -> None:
         if not name:
             raise ShoppingListException()
+        super().__init__(persister)
+        
         self.name = name
         self.items = []
 

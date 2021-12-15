@@ -1,8 +1,11 @@
+from src.common.persister import Persister
 from src.stock.inventory_good import InventoryGood
+from src.common.loading_list import LoadingList
 
-class Stock:
-    def __init__(self) -> None:
+class Stock(LoadingList):
+    def __init__(self, persister: Persister) -> None:
         self.goods = {}
+        super().__init__(persister)
 
     def total_quantity(self):
         return len(self.goods)
