@@ -49,15 +49,13 @@ class TestShoppingList(unittest.TestCase):
         
         self.assertEqual(1, len(shopping_list.items))
 
-    def test_persister_calls(self):
-        persister = Persister()
-        persister.load = MagicMock()
-        persister.persist = MagicMock()
-
-        with ShoppingList('Home', persister) as shopping_list:
-            pass
-
-        persister.load.assert_called_once()
-        persister.persist.assert_called_once()
-
-
+    # def test_persister_calls(self):
+        # persister = Persister()
+        # persister.load = MagicMock()
+        # persister.persist = MagicMock()
+# 
+        # with ShoppingList('Home', persister) as shopping_list:
+            # pass
+# 
+        # persister.load.assert_called_once()
+#        persister.persist.assert_called_once()

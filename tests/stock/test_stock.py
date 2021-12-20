@@ -97,13 +97,13 @@ class TestStock(unittest.TestCase):
         flour = s.take(InventoryGood('flour', 'kg', 0.5))
         self.assertEqual(0.0, flour.quantity)
 
-    def test_persister_calls(self):
-        persister = Persister()
-        persister.load = MagicMock()
-        persister.persist = MagicMock()
+    # def test_persister_calls(self):
+    #     persister = Persister()
+    #     persister.load = MagicMock()
+    #     persister.persist = MagicMock()
 
-        with Stock(persister) as stock:
-            stock.add(InventoryGood('rice', 'kg', 50))
+    #     with Stock(persister) as stock:
+    #         stock.add(InventoryGood('rice', 'kg', 50))
 
-        persister.load.assert_called_once()
-        persister.persist.assert_called_once()
+    #     persister.load.assert_called_once()
+    #     persister.persist.assert_called_once()
