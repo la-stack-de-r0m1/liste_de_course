@@ -11,12 +11,12 @@ class TestShoppingService(unittest.TestCase):
         super().__init__(methodName=methodName)
 
     def setUp(self) -> None:
-        self.shopping_list = ShoppingList('Home', None)\
+        self.shopping_list = ShoppingList('Home')\
             .add(ShoppingItem('rice'))\
             .add(ShoppingItem('pasta'))\
             .add(ShoppingItem('eggs', '', 6))
 
-        self.stock = Stock(None)\
+        self.stock = Stock()\
             .add(InventoryGood('pasta', 'kg', 0.5))\
             .add(InventoryGood('rice', 'kg', 1.0))
 

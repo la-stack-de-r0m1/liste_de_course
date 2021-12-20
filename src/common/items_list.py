@@ -1,8 +1,6 @@
-from src.common.persister import Persister
-
 class ItemsList:
-    def __init__(self, items) -> None:
-        self.items = items
+    def __init__(self) -> None:
+        self.items = None
 
     def total_quantity(self):
         return len(self.items)

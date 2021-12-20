@@ -30,6 +30,3 @@ class PersisterTest(unittest.TestCase):
         with loader as p:
             pass
         loader.persist.assert_called_once()
-
-
-

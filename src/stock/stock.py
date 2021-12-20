@@ -1,10 +1,10 @@
-from src.common.persister import Persister
 from src.stock.inventory_good import InventoryGood
 from src.common.items_list import ItemsList
 
 class Stock(ItemsList):
-    def __init__(self, persister: Persister) -> None:
-        super().__init__(items={})
+    def __init__(self) -> None:
+        super().__init__()
+        self.items = {}
 
     def add(self, good: InventoryGood):
         good_name = good.name
