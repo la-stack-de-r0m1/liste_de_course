@@ -39,7 +39,7 @@ class TestShoppingList(unittest.TestCase):
         self.assertEqual(42, item.quantity)
 
     def test_take_item_remove_from_list(self):
-        shopping_list = ShoppingList('Home', None)
+        shopping_list = ShoppingList('Home')
         
         shopping_list.add(ShoppingItem('pasta', '', 42))
         shopping_list.add(ShoppingItem('rice', '', 21))

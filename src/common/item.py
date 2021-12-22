@@ -3,9 +3,9 @@ from enum import Enum
 from src.common.exceptions import NegativeQuantityException
 
 class CommonUnits(Enum):
-    NumberOf = ''
-    KiloGram = 'kg',
-    Gram = 'g'
+    NumberOf = "",
+    KiloGram = "kg",
+    Gram = "g"
 
 @dataclass
 class Item:
