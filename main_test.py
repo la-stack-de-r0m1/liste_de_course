@@ -5,8 +5,6 @@ from src.json_writters.json_stock_persister import JsonStockSerializer
 from src.stock.inventory_good import InventoryGood
 from src.stock.stock import Stock
 
-import json
-
 if __name__ == '__main__':
    
     stock = Stock()

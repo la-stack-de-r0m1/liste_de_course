@@ -5,4 +5,4 @@ venv
 */*pyc
 */*/*.pyc
 
-var/stock.json
+var/*
