@@ -1,7 +1,7 @@
 import unittest
-from unittest.mock import MagicMock
 from src.shopping.shopping_list import ShoppingList, ShoppingListException
 from src.shopping.shopping_item import ShoppingItem
+from src.json_writters.json_shopping_list_persister import JsonShoppingListSerializer
 
 
 class TestShoppingList(unittest.TestCase):
@@ -46,3 +46,28 @@ class TestShoppingList(unittest.TestCase):
         shopping_list.take(0)
         
         self.assertEqual(1, len(shopping_list.items))
+
+    def test_load_list_from_json(self):
+        items = {
+            "items": [
+                    {"name": "pasta", "unit": "kg", "quantity": 1.0},
+                    {"name": "rice", "unit": "kg", "quantity": 1.5},
+                    {"name": "coffee", "unit": "kg", "quantity": 0.5}
+                ],
+            "name": "house"
+            }
+
+        s = ShoppingList('NA')
+        p = JsonShoppingListSerializer(s, '')
+        p.load_stock_from_json(items)
+
+        self.assertEqual('house', s.name)
+
+        self.assertEqual('pasta', s.items[0].name)
+        self.assertEqual(1.0, s.items[0].quantity)
+
+        self.assertEqual('rice', s.items[1].name)
+        self.assertEqual(1.5, s.items[1].quantity)
+
+        self.assertTrue('coffee', s.items[2].name)
+        self.assertEqual(0.5,  s.items[2].quantity)

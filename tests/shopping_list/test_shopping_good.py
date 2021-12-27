@@ -1,5 +1,5 @@
 import unittest
-from src.shopping.shopping_item import ShoppingItem
+from src.shopping.shopping_item import ShoppingItem, from_dict
 from src.common.item import NegativeQuantityException
 
 class TestShoppingGood(unittest.TestCase):
@@ -20,3 +20,11 @@ class TestShoppingGood(unittest.TestCase):
     def test_raise_if_negative_quantity(self):
         with self.assertRaises(NegativeQuantityException):
             item = ShoppingItem('pasta', '',  -1)
+    
+    def test_load_item_from_json(self):
+        pasta_json = {'name': 'pasta', 'unit': 'kg', 'quantity': 1.5}
+        good = from_dict(pasta_json)
+
+        self.assertEqual('pasta', good.name)
+        self.assertEqual('kg', good.unit)
+        self.assertEqual(1.5, good.quantity)

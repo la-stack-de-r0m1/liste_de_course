@@ -1,9 +1,9 @@
 from json import JSONEncoder
 
-class InventoryGoodEncoder(JSONEncoder):
+class ShoppingItemEncoder(JSONEncoder):
     def default(self, o: any) -> any:
         return o.__dict__
 
-class StockEncoder(JSONEncoder):
+class ShoppingListEncoder(JSONEncoder):
     def default(self, o: any) -> any:
         return o.__dict__
