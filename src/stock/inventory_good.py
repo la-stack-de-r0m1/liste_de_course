@@ -1,3 +1,4 @@
+from src.json_writters.json_inventory_good_encoder import InventoryGoodEncoder
 from src.common.exceptions import BadGoods, NegativeQuantityException
 from src.common.item import Item
 
@@ -44,4 +45,8 @@ class InventoryGood(Item):
 
         return taken_quatity
 
-    
+def from_dict(items_data: dict) -> InventoryGood:
+    return InventoryGood(name=items_data['name'],
+        unit=items_data['unit'],
+        quantity=items_data['quantity'])
+

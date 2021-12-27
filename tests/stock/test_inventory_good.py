@@ -1,5 +1,5 @@
 import unittest
-from src.stock.inventory_good import InventoryGood
+from src.stock.inventory_good import InventoryGood, from_dict
 from src.common.item import CommonUnits
 
 from src.common.exceptions import NegativeQuantityException, BadGoods
@@ -69,3 +69,11 @@ class TestInventoryGood(unittest.TestCase):
     def test_bad_instance_raise_exception(self):
         with self.assertRaises(BadGoods):
             self.rice += 1
+
+    def test_load_inventoey_good_from_json(self):
+        pasta_json = {'name': 'pasta', 'unit': 'kg', 'quantity': 1.5}
+        good = from_dict(pasta_json)
+
+        self.assertEqual('pasta', good.name)
+        self.assertEqual('kg', good.unit)
+        self.assertEqual(1.5, good.quantity)
