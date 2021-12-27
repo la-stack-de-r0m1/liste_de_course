@@ -3,7 +3,7 @@ import json
 from src.json_writters.json_inventory_good_encoder import StockEncoder
 from src.stock.inventory_good import from_dict
 
-class JsonStockPersister(Persister):
+class JsonStockSerializer(Persister):
     def __init__(self, item_list, file_path) -> None:
         super().__init__(item_list)
         self.file_path = file_path
@@ -14,7 +14,7 @@ class JsonStockPersister(Persister):
                 self.load_stock_from_json(json_data=json.load(f))
         except ValueError as e:
             print('loading stock error')
-            
+
     def load_stock_from_json(self, json_data):
         try:
             items = json_data['items']

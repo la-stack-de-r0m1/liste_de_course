@@ -1,6 +1,6 @@
 from src.stock.stock import Stock
 from src.stock.inventory_good import InventoryGood
-from src.json_writters.json_stock_persister import JsonStockPersister
+from src.json_writters.json_stock_persister import JsonStockSerializer
 
 import unittest
 
@@ -108,7 +108,7 @@ class TestStock(unittest.TestCase):
             }
 
         s = Stock()
-        p = JsonStockPersister(s, '')
+        p = JsonStockSerializer(s, '')
         p.load_stock_from_json(items)
 
         self.assertTrue(s.has('pasta'))
