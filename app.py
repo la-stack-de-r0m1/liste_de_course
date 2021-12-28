@@ -4,6 +4,8 @@ from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
+s = StockController()
+
 
 @app.route("/")
 def index():
@@ -11,8 +13,11 @@ def index():
 
 @app.route("/stock")
 def stock():
-    s = StockController()
     return s.index()
+
+@app.route("/stock/add", methods=['POST', 'GET'])
+def add():
+    return s.add()
 
 @app.route("/shopping_list")
 def shopping_list():
