@@ -1,0 +1,8 @@
+<h1>Mon stock</h1>
+
+{% for item, value in items.items() %}
+    <h2>{{ item }}</h2>
+    <p>
+        {{ value.quantity }} {{ value.unit }}
+    </p>
+{% endfor %}
