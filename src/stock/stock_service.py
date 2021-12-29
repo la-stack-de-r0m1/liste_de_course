@@ -1,3 +1,4 @@
+from app import stock
 from src.stock.inventory_good import InventoryGood
 from src.json_writters.json_stock_persister import JsonStockSerializer
 from src.stock.stock import Stock
@@ -51,6 +52,13 @@ class StockService:
 
     def edit(self, form_data, name):
         good = self.find_one(name)
-        good.quantity = form_data["quantity"]
-        self.save()
+        if good:
+            good.quantity = form_data["quantity"]
+            self.save()
+
+    def delete(self, name):
+        good = self.find_one(name)
+        if good:
+            del self.stock.items[name]
+            self.save()
         
