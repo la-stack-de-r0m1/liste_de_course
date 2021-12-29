@@ -1,4 +1,6 @@
 from flask import render_template
+from flask.helpers import url_for
+from werkzeug.utils import redirect
 from src.stock.stock_service import StockService
 from flask import request, flash
 
@@ -15,3 +17,15 @@ class StockController:
             flash(message=messages['msg'], category=messages['category'])
 
         return render_template('stock_add.html', messages=messages)
+
+    def edit(self, name):
+        if request.method == 'GET':
+            good = self.service.find_one(name)
+            return render_template('stock_edit.html', good=good)
+        elif request.method == 'POST':
+            self.service.edit(request.form, name)
+            flash(message='Quantité modifiée!', category='success'])
+            return redirect(url_for('stock'))
+
+
+

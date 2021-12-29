@@ -5,6 +5,7 @@
     <p>
         {{ value.quantity }} {{ value.unit }}
     </p>
+    <a href="{{ url_for('edit', name=item) }}">Modifier</a>
 {% endfor %}
 
 <a href="{{ url_for('add')}}">Ajouter</a>

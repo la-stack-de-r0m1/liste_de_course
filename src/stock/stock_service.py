@@ -45,3 +45,12 @@ class StockService:
             return form_data['name'] and form_data['unit'] and form_data['quantity']
         else:
             return False
+
+    def find_one(self, name):
+        return self.stock.items[name] if self.stock.has(name) else None
+
+    def edit(self, form_data, name):
+        good = self.find_one(name)
+        good.quantity = form_data["quantity"]
+        self.save()
+        

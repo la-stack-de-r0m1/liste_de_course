@@ -1,6 +1,7 @@
 from src.stock.stock_controller import StockController
 from flask import Flask
 from decouple import config
+from markupsafe import escape
 
 from flask import render_template
 
@@ -21,6 +22,11 @@ def stock():
 @app.route("/stock/add", methods=['POST', 'GET'])
 def add():
     return s.add()
+
+@app.route("/stock/<name>", methods=['POST', 'GET'])
+def edit(name):
+    name = escape(name)
+    return s.edit(name)
 
 @app.route("/shopping_list")
 def shopping_list():
