@@ -1,5 +1,7 @@
 settings.json
 
+.env
+
 venv
 *.pyc
 */*pyc

@@ -2,19 +2,18 @@ from src.stock.inventory_good import InventoryGood
 from src.json_writters.json_stock_persister import JsonStockSerializer
 from src.stock.stock import Stock
 
-from markupsafe import escape
-
 class StockService:
     def __init__(self) -> None:
         self.stock = self.create_stock()
-        self.stock_serializer = self.create_stock_serializer()
-        self.stock_serializer.load()
+        self.stock_serializer = self.init_stock_serializer()
 
     def create_stock(self):
         return Stock()
 
-    def create_stock_serializer(self):
-        return JsonStockSerializer(self.stock, 'var/stock.json')
+    def init_stock_serializer(self):
+        stock_serializer = JsonStockSerializer(self.stock, 'var/stock.json')
+        stock_serializer.load()
+        return stock_serializer
 
     def save(self):
         self.stock_serializer.persist()
@@ -24,15 +23,25 @@ class StockService:
 
     def add(self, form_data):
         if self.form_is_valid(form_data):
-            good = InventoryGood(form_data['name'],
-                form_data['unit'],
-                float(form_data['quantity']))
-            self.stock.add(good)
-            self.save()
-
-            return {'type':'success', 'msg': 'good added!'}
-
-        return {'type':'error', 'msg': 'invalid form'}
+            self.create_and_add_good(form_data)
+            return {'category':'success', 'msg': 'good added!'}
+        else:
+            return {'category':'error', 'msg': 'invalid form'}
     
+    def create_and_add_good(self, form_data):
+        good = InventoryGood(form_data['name'],
+            form_data['unit'],
+            float(form_data['quantity']))
+        self.stock.add(good)
+        self.save()
+
     def form_is_valid(self, form_data):
-        return form_data['name'] and form_data['unit'] and form_data['quantity']
+        if 'name' in form_data and 'unit' in form_data and 'quantity' in form_data:
+            try:
+                float(form_data['quantity'])
+            except ValueError:
+                return False
+    
+            return form_data['name'] and form_data['unit'] and form_data['quantity']
+        else:
+            return False

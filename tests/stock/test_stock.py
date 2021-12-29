@@ -16,10 +16,8 @@ class TestStock(unittest.TestCase):
         self.assertEqual(0, s.total_quantity())
 
     def test_add_good(self):
-        s = Stock()
-        
+        s = Stock()        
         s.add(InventoryGood('rice', 'kg', 1))
-        print(s.items)
 
         self.assertEqual(1, s.total_quantity())
 
