@@ -5,13 +5,11 @@
     <p>
         {{ value.quantity }} {{ value.unit }}
     </p>
-    <a href="{{ url_for('edit', name=item) }}">Modifier</a>
+    <a href="{{ url_for('stock.edit', name=item) }}">Modifier</a>
     
-    <form action="{{ url_for('delete', name=item) }}" method="post">
+    <form action="{{ url_for('stock.delete', name=item) }}" method="post">
         <input type="submit" value="Supprimer">
     </form>
-    
-    <a href="{{ url_for('edit', name=item) }}"></a>
 {% endfor %}
 
-<br><a href="{{ url_for('add')}}">Ajouter</a>
+<br><a href="{{ url_for('stock.add')}}">Ajouter</a>

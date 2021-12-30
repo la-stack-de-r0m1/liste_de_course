@@ -10,7 +10,7 @@
 
 {% if good %}
     <h1> {{ good.name }} </h1>
-    <form action="{{ url_for('edit', name=good.name) }}" method="post" name="edit">
+    <form action="{{ url_for('stock.edit', name=good.name) }}" method="post" name="edit">
 
         Nouvelle quantité : <input type="text" name="quantity" value="{{ good.quantity }}" /> {{ good.unit }}<br> 
         <input type="submit" value="Modifier" name="edit_button" />

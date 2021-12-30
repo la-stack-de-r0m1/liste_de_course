@@ -24,9 +24,9 @@ class StockController:
         elif request.method == 'POST':
             self.service.edit(request.form, name)
             flash(message='Quantité modifiée!', category='success')
-            return redirect(url_for('stock'))
+            return redirect(url_for('stock.stock'))
 
     def delete(self, name):
         if request.method == 'POST':
             self.service.delete(name)
-        return redirect(url_for('stock'))
+        return redirect(url_for('stock.stock'))
