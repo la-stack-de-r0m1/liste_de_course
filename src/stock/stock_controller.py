@@ -1,8 +1,7 @@
-from flask import render_template
 from flask.helpers import url_for
 from werkzeug.utils import redirect
 from src.stock.stock_service import StockService
-from flask import request, flash
+from flask import request, flash, render_template
 
 class StockController:
     def __init__(self) -> None:
@@ -28,5 +27,6 @@ class StockController:
             return redirect(url_for('stock'))
 
     def delete(self, name):
-        self.service.delete(name)
+        if request.method == 'POST':
+            self.service.delete(name)
         return redirect(url_for('stock'))

@@ -7,7 +7,7 @@
     </p>
     <a href="{{ url_for('edit', name=item) }}">Modifier</a>
     
-    <form action="{{ url_for('delete', name=item) }}">
+    <form action="{{ url_for('delete', name=item) }}" method="post">
         <input type="submit" value="Supprimer">
     </form>
     
