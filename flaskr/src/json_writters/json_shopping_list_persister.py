@@ -1,8 +1,8 @@
-from src.common.persister import Persister
+from flaskr.src.common.persister import Persister
 import json
 import os
-from src.json_writters.json_shopping_item_encoder import ShoppingListEncoder
-from src.shopping.shopping_item import from_dict
+from flaskr.src.json_writters.json_shopping_item_encoder import ShoppingListEncoder
+from flaskr.src.shopping.shopping_item import from_dict
 
 class JsonShoppingListSerializer(Persister):
     def __init__(self, item_list, file_path) -> None:

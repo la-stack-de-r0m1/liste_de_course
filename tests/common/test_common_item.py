@@ -1,5 +1,5 @@
 import unittest
-from src.common.item import Item, NegativeQuantityException
+from flaskr.src.common.item import Item, NegativeQuantityException
 
 class TestShoppingGood(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

@@ -1,7 +1,7 @@
 import unittest
-from src.shopping.shopping_list import ShoppingList, ShoppingListException
-from src.shopping.shopping_item import ShoppingItem
-from src.json_writters.json_shopping_list_persister import JsonShoppingListSerializer
+from flaskr.src.shopping.shopping_list import ShoppingList, ShoppingListException
+from flaskr.src.shopping.shopping_item import ShoppingItem
+from flaskr.src.json_writters.json_shopping_list_persister import JsonShoppingListSerializer
 
 
 class TestShoppingList(unittest.TestCase):

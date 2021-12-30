@@ -1,9 +1,9 @@
 import json
 import unittest
 
-from src.stock.inventory_good import InventoryGood
-from src.stock.stock import Stock
-from src.json_writters.json_inventory_good_encoder import InventoryGoodEncoder, StockEncoder
+from flaskr.src.stock.inventory_good import InventoryGood
+from flaskr.src.stock.stock import Stock
+from flaskr.src.json_writters.json_inventory_good_encoder import InventoryGoodEncoder, StockEncoder
 
 class TestJSONEncoder(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

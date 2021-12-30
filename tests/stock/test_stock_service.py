@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-from src.stock.stock_service import StockService
+from flaskr.src.stock.stock_service import StockService
 
 class TestStockService(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

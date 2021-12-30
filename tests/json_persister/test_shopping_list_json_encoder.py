@@ -1,7 +1,7 @@
-from src.json_writters.json_shopping_item_encoder import ShoppingItemEncoder, ShoppingListEncoder
+from flaskr.src.json_writters.json_shopping_item_encoder import ShoppingItemEncoder, ShoppingListEncoder
 import unittest
-from src.shopping.shopping_item import ShoppingItem
-from src.shopping.shopping_list import ShoppingList
+from flaskr.src.shopping.shopping_item import ShoppingItem
+from flaskr.src.shopping.shopping_list import ShoppingList
 
 class TestShoppingListJsonEncoder(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

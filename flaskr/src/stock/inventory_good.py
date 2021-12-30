@@ -1,6 +1,6 @@
-from src.json_writters.json_inventory_good_encoder import InventoryGoodEncoder
-from src.common.exceptions import BadGoods, NegativeQuantityException
-from src.common.item import Item
+from flaskr.src.json_writters.json_inventory_good_encoder import InventoryGoodEncoder
+from flaskr.src.common.exceptions import BadGoods, NegativeQuantityException
+from flaskr.src.common.item import Item
 
 def is_positive(func):
     def inner(self, quantity: float):

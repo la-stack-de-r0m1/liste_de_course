@@ -1,6 +1,6 @@
 from flask.helpers import url_for
 from werkzeug.utils import redirect
-from src.stock.stock_service import StockService
+from flaskr.src.stock.stock_service import StockService
 from flask import request, flash, render_template
 
 class StockController:

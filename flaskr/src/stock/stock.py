@@ -1,5 +1,5 @@
-from src.stock.inventory_good import InventoryGood
-from src.common.items_list import ItemsList
+from flaskr.src.stock.inventory_good import InventoryGood
+from flaskr.src.common.items_list import ItemsList
 
 class Stock(ItemsList):
     def __init__(self) -> None:

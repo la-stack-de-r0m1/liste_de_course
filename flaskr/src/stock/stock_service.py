@@ -1,6 +1,6 @@
-from src.stock.inventory_good import InventoryGood
-from src.json_writters.json_stock_persister import JsonStockSerializer
-from src.stock.stock import Stock
+from flaskr.src.stock.inventory_good import InventoryGood
+from flaskr.src.json_writters.json_stock_persister import JsonStockSerializer
+from flaskr.src.stock.stock import Stock
 
 class StockService:
     def __init__(self) -> None:

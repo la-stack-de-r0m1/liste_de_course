@@ -1,4 +1,4 @@
-from src.stock.inventory_good import InventoryGood
+from flaskr.src.stock.inventory_good import InventoryGood
 
 class ShoppingService:
     def __init__(self, stock, shopping_list) -> None:

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from src.common.exceptions import NegativeQuantityException
+from flaskr.src.common.exceptions import NegativeQuantityException
 
 class CommonUnits(Enum):
     NumberOf = "",

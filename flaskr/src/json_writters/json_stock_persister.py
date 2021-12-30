@@ -1,8 +1,8 @@
 import os
-from src.common.persister import Persister
+from flaskr.src.common.persister import Persister
 import json
-from src.json_writters.json_inventory_good_encoder import StockEncoder
-from src.stock.inventory_good import from_dict
+from flaskr.src.json_writters.json_inventory_good_encoder import StockEncoder
+from flaskr.src.stock.inventory_good import from_dict
 
 class JsonStockSerializer(Persister):
     def __init__(self, item_list, file_path) -> None:

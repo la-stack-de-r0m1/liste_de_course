@@ -1,10 +1,10 @@
-from src.shopping.shopping_item import ShoppingItem
-from src.stock.inventory_good import InventoryGood
+from flaskr.src.shopping.shopping_item import ShoppingItem
+from flaskr.src.stock.inventory_good import InventoryGood
 import unittest
 
-from src.shopping.shopping_service import ShoppingService
-from src.stock.stock import Stock
-from src.shopping.shopping_list import ShoppingList
+from flaskr.src.shopping.shopping_service import ShoppingService
+from flaskr.src.stock.stock import Stock
+from flaskr.src.shopping.shopping_list import ShoppingList
 
 class TestShoppingService(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

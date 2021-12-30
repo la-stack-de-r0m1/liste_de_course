@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from src.common.persister import Persister
+from flaskr.src.common.persister import Persister
 
 class PersisterTest(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

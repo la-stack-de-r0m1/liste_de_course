@@ -1,8 +1,8 @@
 import unittest
-from src.stock.inventory_good import InventoryGood, from_dict
-from src.common.item import CommonUnits
+from flaskr.src.stock.inventory_good import InventoryGood, from_dict
+from flaskr.src.common.item import CommonUnits
 
-from src.common.exceptions import NegativeQuantityException, BadGoods
+from flaskr.src.common.exceptions import NegativeQuantityException, BadGoods
 
 class TestInventoryGood(unittest.TestCase):
     def __init__(self, methodName: str) -> None:

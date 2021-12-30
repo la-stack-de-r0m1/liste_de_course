@@ -1,5 +1,5 @@
-from src.shopping.shopping_item import ShoppingItem
-from src.common.items_list import ItemsList
+from flaskr.src.shopping.shopping_item import ShoppingItem
+from flaskr.src.common.items_list import ItemsList
 
 class ShoppingListException(Exception):
     def __init__(self, *args: object) -> None:
