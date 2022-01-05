@@ -1,7 +1,12 @@
 from flask import Flask
 from decouple import config
+from flask.helpers import url_for
 
+from markupsafe import escape
 from flask import render_template
+from flask import session
+from flask import request
+from werkzeug.utils import redirect
 
 def create_app(test_config=None):
 
@@ -10,7 +15,22 @@ def create_app(test_config=None):
 
     @app.route("/")
     def index():
-        return render_template('index.html')
+        username = session['username'] if 'username' in session else None
+        return render_template('index.html', username=username)
+
+    @app.route("/login", methods=['GET', 'POST'])
+    def login():
+        if request.method == 'POST':
+            session['username'] = escape(request.form['username'])
+            return redirect(url_for('index'))
+        else:
+            return render_template('login_form.html')
+            
+    @app.route('/logout')
+    def logout():
+        session.pop('username', None)
+        return redirect(url_for('index'))
+
 
     @app.route("/shopping_list")
     def shopping_list():
