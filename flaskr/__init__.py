@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from decouple import config
 from flask.helpers import url_for
@@ -10,7 +12,7 @@ from werkzeug.utils import redirect
 
 def create_app(test_config=None):
 
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
     app.secret_key = config('APP_SECRET_KEY')
 
     @app.route("/")
@@ -39,6 +41,9 @@ def create_app(test_config=None):
     @app.errorhandler(404)
     def page_not_found(error):
         return render_template('page_not_found.html'), 404
+
+    from . import db
+    db.init_app(app=app)
 
     from . import stock
     app.register_blueprint(stock.stock_bp)
