@@ -1,16 +1,26 @@
-<h1>Ma liste de course</h1>
+{% extends 'base.html' %}
 
-{% if username %}
-    Bienvenue, {{ username }} -  <a href="{{ url_for('auth.logout' )}}">Logout</a>
+{% block header %}
+  <h1>{% block title %}Ma liste de course{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+{% if g.user %}
+
+    <ul>
+        <li>
+            <a href="{{ url_for('stock.stock') }}">Consulter le stock</a> 
+        </li>
+        <li>
+            <a href="{{ url_for('shopping_list') }}">Votre liste de course</a> 
+        </li>
+    </ul>
+
 {% else %}
-    <a href="{{ url_for('auth.login' )}}">Login</a>
+    
+    <p> Creer un compte ou connectez-vous pour commencer</p>
+
 {% endif %}
 
-<ul>
-    <li>
-        <a href="{{ url_for('stock.stock') }}">Consulter le stock</a> 
-    </li>
-    <li>
-        <a href="{{ url_for('shopping_list') }}">Votre liste de course</a> 
-    </li>
-</ul>
+{% endblock %}

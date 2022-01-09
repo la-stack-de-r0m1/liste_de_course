@@ -1,3 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>
+        {% block title %}
+            Mon stock
+        {%endblock%}
+    </h1>
+{% endblock %}
+
+{% block content %}
+
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     <ul class=flashes>
@@ -14,3 +26,5 @@
     Unité:<input type="text" name="unit" /><br>
     <input type="submit" value="Ajouter" name="add_button" />
 </form>
+
+{% endblock %}

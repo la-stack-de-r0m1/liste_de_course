@@ -1,15 +1,27 @@
-<h1>Mon stock</h1>
+{% extends 'base.html' %}
 
-{% for item, value in items.items() %}
-    <h2>{{ item }}</h2>
-    <p>
-        {{ value.quantity }} {{ value.unit }}
-    </p>
-    <a href="{{ url_for('stock.edit', name=item) }}">Modifier</a>
-    
-    <form action="{{ url_for('stock.delete', name=item) }}" method="post">
-        <input type="submit" value="Supprimer">
-    </form>
-{% endfor %}
+{% block header %}
+    <h1>
+        {% block title %}
+            Mon stock
+        {%endblock%}
+    </h1>
+{% endblock %}
 
-<br><a href="{{ url_for('stock.add')}}">Ajouter</a>
+{% block content %}
+
+    {% for item, value in items.items() %}
+        <h2>{{ item }}</h2>
+        <p>
+            {{ value.quantity }} {{ value.unit }}
+        </p>
+        <a href="{{ url_for('stock.edit', name=item) }}">Modifier</a>
+        
+        <form action="{{ url_for('stock.delete', name=item) }}" method="post">
+            <input type="submit" value="Supprimer">
+        </form>
+    {% endfor %}
+
+    <br><a href="{{ url_for('stock.add')}}">Ajouter</a>
+
+{% endblock %}
