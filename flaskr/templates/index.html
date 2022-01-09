@@ -1,9 +1,9 @@
 <h1>Ma liste de course</h1>
 
 {% if username %}
-    Bienvenue, {{ username }} -  <a href="{{ url_for('logout' )}}">Logout</a>
+    Bienvenue, {{ username }} -  <a href="{{ url_for('auth.logout' )}}">Logout</a>
 {% else %}
-    <a href="{{ url_for('login' )}}">Login</a>
+    <a href="{{ url_for('auth.login' )}}">Login</a>
 {% endif %}
 
 <ul>
