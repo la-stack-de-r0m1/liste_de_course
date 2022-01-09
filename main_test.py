@@ -1,9 +1,9 @@
 from src.json_writters.json_shopping_list_persister import JsonShoppingListSerializer
 from src.shopping.shopping_item import ShoppingItem
-from src.shopping.shopping_list import ShoppingList
-from src.json_writters.json_stock_persister import JsonStockSerializer
-from src.stock.inventory_good import InventoryGood
-from src.stock.stock import Stock
+from flaskr.src.shopping.shopping_list import ShoppingList
+from flaskr.src.json_writters.json_stock_persister import JsonStockSerializer
+from flaskr.src.stock.inventory_good import InventoryGood
+from flaskr.src.stock.stock import Stock
 
 if __name__ == '__main__':
    
