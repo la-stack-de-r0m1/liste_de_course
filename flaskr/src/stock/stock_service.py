@@ -1,5 +1,5 @@
 from flaskr.src.stock.inventory_good import InventoryGood
-from flaskr.src.json_writters.json_stock_persister import JsonStockSerializer
+from flaskr.src.json_writters.json_stock_persister import JsonStockSerializerFromSQL
 from flaskr.src.stock.stock import Stock
 
 class StockService:
@@ -11,7 +11,7 @@ class StockService:
         return Stock()
 
     def init_stock_serializer(self):
-        stock_serializer = JsonStockSerializer(self.stock, 'var/stock.json')
+        stock_serializer = JsonStockSerializerFromSQL(self.stock)
         stock_serializer.load()
         return stock_serializer
 
