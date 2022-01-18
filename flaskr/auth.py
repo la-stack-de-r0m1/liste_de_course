@@ -46,7 +46,7 @@ def register():
                 ).fetchone()
                 if user:
                     db.execute(
-                        "INSERT INTO stcok (owner_id, content) VALUES (?, ?)",
+                        "INSERT INTO stock (owner_id, content) VALUES (?, ?)",
                         (user["id"], '{"items":{}}'),
                     )
                     db.commit()

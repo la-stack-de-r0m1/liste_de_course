@@ -1,12 +1,10 @@
-from flaskr.stock import stock
-from flaskr.src.json_writters.json_shopping_list_persister import JsonShoppingListSerializer
 import os
 from flaskr.src.common.persister import Persister
 import json
 from flaskr.src.json_writters.json_inventory_good_encoder import StockEncoder
 from flaskr.src.stock.inventory_good import from_dict
 from flaskr.db import get_db
-from flask import session, g
+from flask import session
 from werkzeug.exceptions import abort
 
 def load_stock_from_json(json_data):
@@ -56,11 +54,12 @@ class JsonStockSerializerFromSQL(Persister):
         if user_stock is None:
             abort(404, f"Stock cannot be loaded.")
         
-        self.load_stock_from_json(json_data=json.load(user_stock['content']))
+        self.load_stock_from_json(json_data=user_stock['content'])
 
     def load_stock_from_json(self, json_data):
+        print(json_data)
         try:
-            self.item_list.items = load_stock_from_json(json_data=json_data)
+            self.item_list.items = load_stock_from_json(json.loads(json_data))
         except ValueError as e:
             print('loading stock error')
 
@@ -75,5 +74,3 @@ class JsonStockSerializerFromSQL(Persister):
         )
         db.commit()
 
-        with open(self.file_path, 'w') as f:
-            f.write(json_data)
