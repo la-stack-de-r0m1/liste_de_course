@@ -40,6 +40,17 @@ def register():
                     (username, generate_password_hash(password)),
                 )
                 db.commit()
+
+                user = db.execute(
+                    "SELECT * from user where username = ?", (username,)
+                ).fetchone()
+                if user:
+                    db.execute(
+                        "INSERT INTO stcok (owner_id, content) VALUES (?, ?)",
+                        (user["id"], '{"items":{}}'),
+                    )
+                    db.commit()
+
             except db.IntegrityError:
                 error = f"User {username} is already registered"
             else:
