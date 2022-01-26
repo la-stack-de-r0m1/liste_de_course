@@ -3,8 +3,6 @@ from markupsafe import escape
 from flaskr.src.stock.stock_controller import StockController
 from flaskr.auth import login_required
 
-#stock_controller = StockController()
-
 stock_bp = Blueprint('stock', __name__, url_prefix='/stock')
 
 @stock_bp.route("/")

@@ -3,7 +3,7 @@
 {% block header %}
     <h1>
         {% block title %}
-            Ma liste de course
+            Mes listes de course
         {%endblock%}
     </h1>
 {% endblock %}
@@ -11,5 +11,7 @@
 {% block content %}
 
     <h1>TO DO...</h1>
+
+    <br><a href="{{ url_for('shopping_list.add')}}">Ajouter</a>
 
 {% endblock %}

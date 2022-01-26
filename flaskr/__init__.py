@@ -11,11 +11,6 @@ def create_app(test_config=None):
         username = session['username'] if 'username' in session else None
         return render_template('index.html', username=username)
 
-   
-    @app.route("/shopping_list")
-    def shopping_list():
-        return render_template('shopping_list.html')
-
     @app.errorhandler(404)
     def page_not_found(error):
         return render_template('page_not_found.html'), 404
@@ -25,6 +20,9 @@ def create_app(test_config=None):
 
     from . import stock
     app.register_blueprint(stock.stock_bp)
+
+    from . import shopping_list
+    app.register_blueprint(shopping_list.shopping_list_bp)
 
     from . import auth
     app.register_blueprint(auth.auth_bp)
