@@ -12,3 +12,5 @@ venv
 */*/*~
 
 var/*
+
+*.egg-info
