@@ -35,8 +35,6 @@ class ShoppingListService():
 
         return sl
 
-        return shopping_list
-
     def add(self, form_data):
         try:
             db = get_db()
@@ -55,4 +53,11 @@ class ShoppingListService():
         except Exception as e:
             return {'category':'error', 'msg': 'Cannot create list:' + str(e)}
 
-    
+    def delete(self, name):
+        owner_id = session.get('user_id')
+        db = get_db()
+        db.execute(
+            "DELETE FROM shopping_list WHERE owner_id = ? AND list_name = ?",
+            (owner_id, name),
+        )
+        db.commit()

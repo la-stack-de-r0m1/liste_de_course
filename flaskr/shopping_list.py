@@ -16,6 +16,12 @@ def add():
     controller = ShoppingListController()
     return controller.add()
 
+@shopping_list_bp.route("/del/<name>", methods=['GET', 'POST'])
+@login_required
+def delete(name):
+    controller = ShoppingListController()
+    return controller.delete(name)
+
 @shopping_list_bp.route("/<name>", methods=['GET'])
 @login_required
 def show(name):

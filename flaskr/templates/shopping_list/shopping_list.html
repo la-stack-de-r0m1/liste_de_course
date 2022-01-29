@@ -16,6 +16,11 @@
                 {{ item.list_name }}
             </a>
         </h2>
+        <p>
+            <form action="{{ url_for('shopping_list.delete', name=item.list_name) }}" method="post">
+                <input type="submit" value="Supprimer">
+            </form>
+        </p>
     {% endfor %}
 
     <br><a href="{{ url_for('shopping_list.add') }}">Ajouter</a>
