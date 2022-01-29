@@ -7,11 +7,14 @@ shopping_list_bp = Blueprint('shopping_list', __name__, url_prefix='/shopping_li
 
 @shopping_list_bp.route("/", methods=['GET'])
 @login_required
-def shopping_lists():
+def shopping_list():
     return render_template("shopping_list/shopping_list.html")
 
 @shopping_list_bp.route("/add", methods=['GET', 'POST'])
 @login_required
 def add():
+    #if  request.method == 'POST':
+
+
     return render_template('shopping_list/add.html')
 
