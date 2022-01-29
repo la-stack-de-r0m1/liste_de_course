@@ -3,14 +3,14 @@
 {% block header %}
     <h1>
         {% block title %}
-            {{ item.list_name }}
+            {{ item.name }}
         {%endblock%}
     </h1>
 {% endblock %}
 
 {% block content %}
-
-{{ item.content }}
-
+{% for shopping_good in item.items %}
+    {{ shopping_good.name }}
+{% endfor %}
 
 {% endblock %}

@@ -36,18 +36,8 @@ class JsonShoppingListSerializerSQL(Persister):
     def __init__(self, item_list) -> None:
         super().__init__(item_list)
     
-    def load(self, name: str):
-        shopping_list = get_db().execute(
-            'SELECT content'
-            ' FROM shopping_list '
-            ' WHERE owner_id = ? AND name = ?',
-            (session.get('user_id'), name,)
-        ).fetchone()
-
-        if shopping_list is None:
-            abort(404, f"Stock cannot be loaded.")
-        
-        self.load_stock_from_json(json_data=shopping_list['content'])
+    def load(self, content: str ):
+        self.load_stock_from_json(json_data=json.loads(content))
 
     def load_stock_from_json(self, json_data):
         try:
