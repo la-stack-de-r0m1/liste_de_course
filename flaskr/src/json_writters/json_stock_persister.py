@@ -57,7 +57,6 @@ class JsonStockSerializerFromSQL(Persister):
         self.load_stock_from_json(json_data=user_stock['content'])
 
     def load_stock_from_json(self, json_data):
-        print(json_data)
         try:
             self.item_list.items = load_stock_from_json(json.loads(json_data))
         except ValueError as e:

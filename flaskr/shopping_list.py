@@ -1,3 +1,4 @@
+from flaskr.src.shopping.shopping_list_controller import ShoppingListController
 from flask import Blueprint
 from flask.templating import render_template
 from flaskr.auth import login_required
@@ -8,13 +9,13 @@ shopping_list_bp = Blueprint('shopping_list', __name__, url_prefix='/shopping_li
 @shopping_list_bp.route("/", methods=['GET'])
 @login_required
 def shopping_list():
-    return render_template("shopping_list/shopping_list.html")
+    controller = ShoppingListController()
+    return controller.index()
 
 @shopping_list_bp.route("/add", methods=['GET', 'POST'])
 @login_required
 def add():
-    #if  request.method == 'POST':
+    controller = ShoppingListController()
+    return controller.add()
 
-
-    return render_template('shopping_list/add.html')
 

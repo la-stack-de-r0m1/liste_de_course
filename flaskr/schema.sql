@@ -18,6 +18,7 @@ CREATE TABLE stock (
 CREATE TABLE shopping_list (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   owner_id INTEGER NOT NULL,
+  list_name TEXT NOT NULL,
   content TEXT NOT NULL,
   FOREIGN KEY (owner_id) REFERENCES user (id)
 );
