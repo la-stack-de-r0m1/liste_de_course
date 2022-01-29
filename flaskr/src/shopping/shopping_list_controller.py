@@ -10,6 +10,11 @@ class ShoppingListController():
         return render_template('shopping_list/shopping_list.html',
             items=service.read_all())
 
+    def show(self, list_name):
+        service = ShoppingListService()
+        return render_template('shopping_list/show.html',
+            item=service.show(list_name=list_name))
+
     def add(self):
         service = ShoppingListService()
         messages = service.add(request.form) if request.method == 'POST' else None

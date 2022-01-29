@@ -19,19 +19,31 @@ class ShoppingListService():
 
         return user_shopping_list
 
+    def show(self, list_name):
+        shopping_list = get_db().execute(
+            'SELECT * '
+            ' FROM shopping_list '
+            ' WHERE owner_id = ? AND list_name = ?',
+            (session.get('user_id'), list_name,)
+        ).fetchone()
+        return shopping_list
+
     def add(self, form_data):
         try:
             db = get_db()
             name = form_data['name']
             if name:
                 owner_id = session.get('user_id')
+                content = '{"items":[], "name": "' + name + '" }'
                 db.execute(
                     "INSERT INTO shopping_list (owner_id, content, list_name) VALUES (?, ?, ?)",
-                    (owner_id, "", name),
+                    (owner_id, content, name),
                     )
                 db.commit()
                 return {'category':'success', 'msg': 'List added!'}
             else:
                 return {'category':'error', 'msg': 'List name cannot be empty'}    
         except Exception as e:
-            return {'category':'error', 'msg': 'Cannot create list'}
+            return {'category':'error', 'msg': 'Cannot create list:' + str(e)}
+
+    

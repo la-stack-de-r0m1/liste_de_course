@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>
+        {% block title %}
+            {{ item.list_name }}
+        {%endblock%}
+    </h1>
+{% endblock %}
+
+{% block content %}
+
+{{ item.content }}
+
+
+{% endblock %}
