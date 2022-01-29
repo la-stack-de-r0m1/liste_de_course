@@ -11,7 +11,7 @@
 {% block content %}
 
     {% for item in items %}
-        <h2>{{ item.name }}</h2>
+        <h2>{{ item.list_name }}</h2>
     {% endfor %}
 
     <br><a href="{{ url_for('shopping_list.add') }}">Ajouter</a>

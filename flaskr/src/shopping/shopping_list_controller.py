@@ -6,7 +6,9 @@ class ShoppingListController():
         pass
 
     def index(self):
-        return render_template('shopping_list/shopping_list.html', items=[])
+        service = ShoppingListService()
+        return render_template('shopping_list/shopping_list.html',
+            items=service.read_all())
 
     def add(self):
         service = ShoppingListService()
