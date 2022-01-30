@@ -9,8 +9,11 @@
 {% endblock %}
 
 {% block content %}
+
 {% for shopping_good in item.items %}
     {{ shopping_good.name }}
 {% endfor %}
+
+<a href="{{ url_for('shopping_list.edit', name=item.name)  }}">Modifier</a>
 
 {% endblock %}

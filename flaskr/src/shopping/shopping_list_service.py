@@ -3,6 +3,7 @@ from flaskr.db import get_db
 from flask import session
 from werkzeug.exceptions import abort
 from flaskr.src.json_writters.json_shopping_list_persister import JsonShoppingListSerializerSQL
+from flaskr.src.shopping.shopping_item import from_dict
 
 class ShoppingListService():
     def __init__(self) -> None:
@@ -22,18 +23,7 @@ class ShoppingListService():
         return user_shopping_list
 
     def show(self, list_name):
-        shopping_list = get_db().execute(
-            'SELECT * '
-            ' FROM shopping_list '
-            ' WHERE owner_id = ? AND list_name = ?',
-            (session.get('user_id'), list_name,)
-        ).fetchone()
-
-        sl = ShoppingList(shopping_list['list_name'])
-        slsql = JsonShoppingListSerializerSQL(sl)
-        slsql.load(content=shopping_list['content'])
-
-        return sl
+        return self.find_one(list_name)
 
     def add(self, form_data):
         try:
@@ -61,3 +51,30 @@ class ShoppingListService():
             (owner_id, name),
         )
         db.commit()
+
+    def edit(self, form_data, name):
+        item = self.find_one(name)
+
+        if form_data["name"] and form_data["quantity"] and form_data["unit"]:
+            new_item_on_list = from_dict(form_data)
+            item.add(new_item_on_list)
+
+            slsql = JsonShoppingListSerializerSQL(item)
+            slsql.persist()
+
+        return item
+
+    def find_one(self, name):
+        shopping_list = get_db().execute(
+            'SELECT * '
+            ' FROM shopping_list '
+            ' WHERE owner_id = ? AND list_name = ?',
+            (session.get('user_id'), name,)
+        ).fetchone()
+
+        sl = ShoppingList(shopping_list['list_name'])
+        slsql = JsonShoppingListSerializerSQL(sl)
+        slsql.load(content=shopping_list['content'])
+
+        return sl
+

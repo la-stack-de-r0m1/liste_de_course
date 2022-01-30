@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>
+        {% block title %}
+            {{ item.name }}
+        {%endblock%}
+    </h1>
+{% endblock %}
+
+{% block content %}
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('shopping_list.edit', name=item.name) }}" method="post" name="edit">
+    {% for shopping_good in item.items %}
+        <input type="text" name="{{ shopping_good.name }}" value="{{ shopping_good.name }}" />  
+        <input type="text" name="{{ shopping_good.quantity }}" value="{{  shopping_good.quantity}}" />
+        <input type="text" name="{{ shopping_good.unit }}" value="{{shopping_good.unit }}" />
+        <input type="submit" value="Modifier" name="edit_button" />
+    {% endfor %}
+
+    Nom : <input type="text" name="name" />  
+    Quantity : <input type="text" name="quantity" />
+    Unité : <input type="text" name="unit" />
+    <input type="submit" value="Ajouter" name="add_new_button" />
+
+    <input type="text" name="old_name" value={{ item.name }} />
+
+</form>
+
+
+<a href="{{ url_for('shopping_list.show', name=item.list_name) }}">Terminer</a>
+
+{% endblock %}

@@ -29,3 +29,12 @@ class ShoppingListController():
             service = ShoppingListService()
             service.delete(name)
         return redirect(url_for('shopping_list.shopping_list'))
+
+    def edit(self, name):
+        service = ShoppingListService()
+        if request.method == 'POST':
+            item = service.edit(request.form, name)
+        else:
+            item = service.find_one(name)
+
+        return render_template('shopping_list/edit.html', item=item)

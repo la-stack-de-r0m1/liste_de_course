@@ -22,12 +22,14 @@ def delete(name):
     controller = ShoppingListController()
     return controller.delete(name)
 
+@shopping_list_bp.route("/edit/<name>", methods=['GET', 'POST'])
+@login_required
+def edit(name):
+    controller = ShoppingListController()
+    return controller.edit(name)
+
 @shopping_list_bp.route("/<name>", methods=['GET'])
 @login_required
 def show(name):
     controller = ShoppingListController()
     return controller.show(name)
-
-
-
-

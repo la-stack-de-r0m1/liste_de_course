@@ -47,12 +47,15 @@ class JsonShoppingListSerializerSQL(Persister):
             print('loading stock error')
 
     def persist(self):
+        
+
         json_data = ShoppingListEncoder().encode(self.item_list)
+        print(json_data)
 
         db = get_db()
         db.execute(
             'UPDATE shopping_list SET content = ? '
-            ' WHERE owner_id = ? AND name = ?',
-            (json_data, session.get('user_id'), self.item_list['name'],)
+            ' WHERE owner_id = ? AND list_name = ?',
+            (json_data, session.get('user_id'), self.item_list.name,)
         )
         db.commit()

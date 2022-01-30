@@ -7,4 +7,4 @@ class ShoppingItem(Item):
 def from_dict(item_data) -> ShoppingItem:
     return ShoppingItem(name=item_data['name'],
         unit=item_data['unit'],
-        quantity=item_data['quantity'])
+        quantity=float(item_data['quantity']))
