@@ -47,10 +47,7 @@ class JsonShoppingListSerializerSQL(Persister):
             print('loading stock error')
 
     def persist(self):
-        
-
         json_data = ShoppingListEncoder().encode(self.item_list)
-        print(json_data)
 
         db = get_db()
         db.execute(

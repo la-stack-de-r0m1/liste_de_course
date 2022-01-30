@@ -55,10 +55,39 @@ class ShoppingListService():
     def edit(self, form_data, name):
         item = self.find_one(name)
 
-        if form_data["name"] and form_data["quantity"] and form_data["unit"]:
+        if 'add_new_button' in form_data and len(form_data["name"]) and len(form_data["quantity"]) and len(form_data["unit"]):
             new_item_on_list = from_dict(form_data)
             item.add(new_item_on_list)
+            slsql = JsonShoppingListSerializerSQL(item)
+            slsql.persist()
 
+        if 'edit_button' in form_data and len(form_data["name"]) and len(form_data["quantity"]) and len(form_data["unit"]):
+            index = [i for i, current_item in enumerate(item.items) if current_item.name == form_data['old_name']][0]
+            if index != -1:
+                item.take(index)
+                item.add(from_dict(form_data))
+                slsql = JsonShoppingListSerializerSQL(item)
+                slsql.persist()
+
+        if 'delete_button' in form_data:
+            index = [i for i, current_item in enumerate(item.items) if current_item.name == form_data['name']][0]
+            if index != -1:
+                item.take(index)
+                slsql = JsonShoppingListSerializerSQL(item)
+                slsql.persist()
+
+        if 'rename_button' in form_data:
+            old_name = form_data['old_name']
+            new_name = form_data['name']
+            db = get_db()
+            db.execute(
+                'UPDATE shopping_list SET list_name = ? '
+                ' WHERE owner_id = ? AND list_name = ?',
+                (new_name, session.get('user_id'), old_name,)
+            )
+            db.commit()
+
+            item.name = new_name
             slsql = JsonShoppingListSerializerSQL(item)
             slsql.persist()
 
@@ -77,4 +106,3 @@ class ShoppingListService():
         slsql.load(content=shopping_list['content'])
 
         return sl
-
