@@ -14,3 +14,5 @@ venv
 var/*
 
 *.egg-info
+
+.coverage

@@ -3,4 +3,4 @@ class ItemsList:
         self.items = None
 
     def total_quantity(self):
-        return len(self.items)
+        return len(self.items) if self.items else 0

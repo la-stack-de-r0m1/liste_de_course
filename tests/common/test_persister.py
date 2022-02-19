@@ -30,3 +30,14 @@ class PersisterTest(unittest.TestCase):
         with loader as p:
             pass
         loader.persist.assert_called_once()
+
+    def test_raise_exception_if_load_not_impl(self):
+        p = Persister([])
+        with self.assertRaises(NotImplementedError):
+            p.load()
+
+
+    def test_raise_exception_if_persist_not_impl(self):
+        p = Persister([])
+        with self.assertRaises(NotImplementedError):
+            p.persist()
