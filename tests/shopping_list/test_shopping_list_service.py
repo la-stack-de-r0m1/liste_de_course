@@ -1,3 +1,4 @@
+from flaskr.src.shopping.shopping_list import ShoppingList
 from flaskr.src.shopping.shopping_list_db import ShoppingListDb
 import unittest
 from unittest.mock import MagicMock
@@ -82,4 +83,23 @@ class ShoppingListServiceTest(unittest.TestCase):
     def test_delete(self):
         self.list_service.delete('list_name')
         self.db.delete_one.assert_called_once_with(42, 'list_name')
-    
+
+    def test_persist_item(self):
+        self.list_service.persist_item(ShoppingList('test_name'))
+        self.serializer.persist.assert_called_once()
+
+    def test_is_valid(self):
+        is_valid = self.list_service.is_valid({
+            'name': 'test_name',
+            'quantity': '1.0',
+            'unit': 'kg'
+        })
+        self.assertTrue(is_valid)
+
+    def test_is_not_valid(self):
+        is_valid = self.list_service.is_valid({
+            'name': '',
+            'quantity': '',
+            'unit': ''
+        })
+        self.assertFalse(is_valid)

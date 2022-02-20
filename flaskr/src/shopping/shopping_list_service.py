@@ -32,14 +32,12 @@ class ShoppingListService():
     def edit(self, form_data, name):
         item = self.find_one(name)
 
-        if 'add_new_button' in form_data and len(form_data["name"]) and len(form_data["quantity"]) and len(form_data["unit"]):
+        if 'add_new_button' in form_data and self.is_valid(form_data):
             new_item_on_list = from_dict(form_data)
             item.add(new_item_on_list)
+            self.persist_item(item)
 
-            self.list_serializer.item_list = item
-            self.list_serializer.persist()
-
-        if 'edit_button' in form_data and len(form_data["name"]) and len(form_data["quantity"]) and len(form_data["unit"]):
+        if 'edit_button' in form_data and self.is_valid(form_data):
             index = [i for i, current_item in enumerate(item.items) if current_item.name == form_data['old_name']][0]
             if index != -1:
                 item.take(index)
@@ -51,8 +49,7 @@ class ShoppingListService():
             index = [i for i, current_item in enumerate(item.items) if current_item.name == form_data['name']][0]
             if index != -1:
                 item.take(index)
-                self.list_serializer.item_list = item
-                self.list_serializer.persist()
+                self.persist_item(item)
 
         if 'rename_button' in form_data:
             self.db.update_list_name(
@@ -61,8 +58,7 @@ class ShoppingListService():
                 new_name=form_data['name']
             )
             item.name = form_data['name']
-            self.list_serializer.item_list = item
-            self.list_serializer.persist()
+            self.persist_item(item)
 
         return item
 
@@ -76,5 +72,13 @@ class ShoppingListService():
         return sl
 
     def read_all(self) -> list:
-        user_shopping_list = self.db.find_all_by_user(self.user_id)
-        return user_shopping_list
+        return self.db.find_all_by_user(self.user_id)
+
+    def persist_item(self, item: ShoppingList) -> None:
+        self.list_serializer.item_list = item
+        self.list_serializer.persist()
+
+    def is_valid(self, form_data):
+        return len(form_data["name"]) \
+            and len(form_data["quantity"]) \
+            and len(form_data["unit"])
