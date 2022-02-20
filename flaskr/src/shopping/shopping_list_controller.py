@@ -1,6 +1,7 @@
 from flaskr.db import get_db
 from flask import request, flash,  render_template, session
 from flaskr.src.shopping.shopping_list_service import ShoppingListService
+from flaskr.src.json_writters.json_shopping_list_persister import JsonShoppingListSerializerSQL
 from flaskr.src.shopping.shopping_list_db import ShoppingListDb
 from flask.helpers import url_for
 from werkzeug.utils import redirect
@@ -8,7 +9,12 @@ from werkzeug.utils import redirect
 class ShoppingListController():
     def __init__(self) -> None:
         db = ShoppingListDb(get_db())
-        self.service = ShoppingListService(db=db, user_id=session.get('user_id'))
+        json_serializer = JsonShoppingListSerializerSQL(None)
+        self.service = ShoppingListService(
+            db=db,
+            user_id=session.get('user_id'),
+            list_serializer=json_serializer
+        )
 
     def index(self):
         return render_template('shopping_list/shopping_list.html',
