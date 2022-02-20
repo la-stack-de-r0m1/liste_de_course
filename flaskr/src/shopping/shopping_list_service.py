@@ -10,19 +10,14 @@ class ShoppingListService():
         self.db = db
         self.user_id = user_id
 
-    def show(self, list_name):
+    def show(self, list_name) -> ShoppingList:
         return self.find_one(list_name)
 
     def add(self, form_data):
         try:
             name = form_data['name']
             if name:
-                content = '{"items":[], "name": "' + name + '" }'
-                self.db.execute(
-                    "INSERT INTO shopping_list (owner_id, content, list_name) VALUES (?, ?, ?)",
-                    (self.user_id, content, name),
-                    )
-                self.db.commit()
+                self.db.create_one(user_id=self.user_id, new_list_name=name)
                 return {'category':'success', 'msg': 'List added!'}
             else:
                 return {'category':'error', 'msg': 'List name cannot be empty'}    
@@ -69,7 +64,7 @@ class ShoppingListService():
 
         return item
 
-    def find_one(self, list_name: str):
+    def find_one(self, list_name: str) -> ShoppingList:
         shopping_list = self.db.find_one_by(self.user_id, list_name)
 
         sl = ShoppingList(shopping_list['list_name'])

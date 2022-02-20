@@ -6,3 +6,8 @@ How to start the app in dev mode :
 
 Init the db:
 $ flask init-db
+
+Coverage:
+ coverage run -m unittest discover
+ coverage report -m
+

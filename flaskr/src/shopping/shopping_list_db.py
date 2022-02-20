@@ -25,6 +25,14 @@ class ShoppingListDb:
 
         return user_shopping_list
 
+    def create_one(self, user_id: int, new_list_name: str) -> None:
+        content = f'{{"items":[], "name": "{new_list_name}" }}'
+        self.db_object.execute(
+            "INSERT INTO shopping_list (owner_id, content, list_name) VALUES (?, ?, ?)",
+            (user_id, content, new_list_name),
+        )
+        self.db_object.commit()
+
     def delete_one(self, user_id: int, list_name: str) -> None:
         self.db_object.execute(
             "DELETE FROM shopping_list WHERE owner_id = ? AND list_name = ?",
@@ -39,5 +47,7 @@ class ShoppingListDb:
             (new_name, user_id, old_name,)
         )
         self.db_object.commit()
+
+    
 
     

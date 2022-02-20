@@ -121,3 +121,25 @@ class ShoppingListDbTest(unittest.TestCase):
         db.update_list_name(user_id=42, old_name="old", new_name="new")
 
         db_conn.commit.assert_called_once()
+
+    def test_create_one_execute(self):
+        db_conn = FakeDb()
+        db_conn.execute = MagicMock()
+
+        db = ShoppingListDb(db_conn)
+        db.create_one(user_id=42, new_list_name="new")
+        db_conn.execute.assert_called_once_with(
+            
+              "INSERT INTO shopping_list (owner_id, content, list_name) VALUES (?, ?, ?)",
+               (42, '{"items":[], "name": "new" }', "new"),
+        )
+
+    def create_one_commit(self):
+        db_conn = FakeDb()
+        db_conn.execute = MagicMock()
+        db_conn.commit = MagicMock()
+
+        db = ShoppingListDb(db_conn)
+        db.create_one(user_id=42, new_list_name="new")
+
+        db_conn.commit.assert_called_once()
