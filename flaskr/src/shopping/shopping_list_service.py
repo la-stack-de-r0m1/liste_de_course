@@ -1,7 +1,6 @@
 from flaskr.src.common.persister import Persister
 from flaskr.src.shopping.shopping_list_db import ShoppingListDb
 from flaskr.src.shopping.shopping_list import ShoppingList
-from werkzeug.exceptions import abort
 from flaskr.src.shopping.shopping_item import from_dict
 
 class ShoppingListService():
@@ -78,7 +77,4 @@ class ShoppingListService():
 
     def read_all(self) -> list:
         user_shopping_list = self.db.find_all_by_user(self.user_id)
-        if user_shopping_list is None:
-            abort(404, f"Shopping list cannot be loaded.")
-
         return user_shopping_list

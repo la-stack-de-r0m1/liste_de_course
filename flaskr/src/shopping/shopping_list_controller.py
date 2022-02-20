@@ -5,6 +5,7 @@ from flaskr.src.json_writters.json_shopping_list_persister import JsonShoppingLi
 from flaskr.src.shopping.shopping_list_db import ShoppingListDb
 from flask.helpers import url_for
 from werkzeug.utils import redirect
+from werkzeug.exceptions import abort
 
 class ShoppingListController():
     def __init__(self) -> None:
@@ -17,8 +18,12 @@ class ShoppingListController():
         )
 
     def index(self):
+        shopping_lists = self.service.read_all()
+        if shopping_lists is None:
+            abort(404, f"Shopping list cannot be loaded.")
+
         return render_template('shopping_list/shopping_list.html',
-            items=self.service.read_all())
+            items=shopping_lists)
 
     def show(self, list_name):
         return render_template('shopping_list/show.html',

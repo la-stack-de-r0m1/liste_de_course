@@ -134,7 +134,7 @@ class ShoppingListDbTest(unittest.TestCase):
                (42, '{"items":[], "name": "new" }', "new"),
         )
 
-    def create_one_commit(self):
+    def test_create_one_commit(self):
         db_conn = FakeDb()
         db_conn.execute = MagicMock()
         db_conn.commit = MagicMock()
