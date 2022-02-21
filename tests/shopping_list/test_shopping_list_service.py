@@ -10,6 +10,12 @@ class ShoppingListServiceTest(unittest.TestCase):
         super().__init__(methodName=methodName)
 
     def setUp(self) -> None:
+        self.form_data = {
+            'name': 'Patate',
+            'quantity': '1.0',
+            'unit': 'kg'
+        }
+
         self.serializer = JsonShoppingListSerializerSQL(None)
         self.serializer.persist = MagicMock()
 
@@ -34,16 +40,19 @@ class ShoppingListServiceTest(unittest.TestCase):
 
     def test_ctor(self):
         s = ShoppingListService(db=self.db, user_id=42, list_serializer=self.serializer)
+        
         self.assertEqual(s.db, self.db)
         self.assertEqual(42, s.user_id)
         self.assertEqual(s.list_serializer, self.serializer)
 
     def test_show(self):
         self.list_service.show('test_name')
+        
         self.db.find_one_by.assert_called_once_with(42, 'test_name')
 
     def test_show_return_value(self):
         shopping_list = self.list_service.show('test_name')
+        
         self.assertEqual('test_name', shopping_list.name)
         self.assertEqual('Patate', shopping_list.items[0].name)
         self.assertEqual('kg', shopping_list.items[0].unit)
@@ -55,6 +64,7 @@ class ShoppingListServiceTest(unittest.TestCase):
 
     def test_find_all_return_value(self):
         shopping_lists = self.list_service.read_all()
+       
         self.assertEqual('test_name', shopping_lists[0]['list_name'])
         self.assertEqual(42, shopping_lists[0]['owner_id'])
         self.assertEqual(
@@ -65,27 +75,32 @@ class ShoppingListServiceTest(unittest.TestCase):
     def test_add_success(self):
         result = self.list_service.add({'name': 'test_name'})
         self.db.create_one.assert_called_once_with(user_id=42, new_list_name='test_name')
+        
         self.assertEqual('success', result["category"])
         self.assertEqual('List added!', result["msg"])
 
     def test_add_empty_name(self):
         result = self.list_service.add({'name': ''})
         self.db.create_one.assert_not_called()
+        
         self.assertEqual('error', result["category"])
         self.assertEqual('List name cannot be empty', result["msg"])
 
     def test_add_exception(self):
         self.db.create_one = MagicMock(side_effect=Exception('boom'))
         result = self.list_service.add({'name': 'test_name'})
+        
         self.assertEqual('error', result["category"])
         self.assertEqual('Cannot create list:boom', result["msg"])
 
     def test_delete(self):
         self.list_service.delete('list_name')
+        
         self.db.delete_one.assert_called_once_with(42, 'list_name')
 
     def test_persist_item(self):
         self.list_service.persist_item(ShoppingList('test_name'))
+        
         self.serializer.persist.assert_called_once()
 
     def test_is_valid(self):
@@ -94,6 +109,7 @@ class ShoppingListServiceTest(unittest.TestCase):
             'quantity': '1.0',
             'unit': 'kg'
         })
+        
         self.assertTrue(is_valid)
 
     def test_is_not_valid(self):
@@ -102,4 +118,38 @@ class ShoppingListServiceTest(unittest.TestCase):
             'quantity': '',
             'unit': ''
         })
+        
         self.assertFalse(is_valid)
+
+    def test_edit(self):
+        self.list_service.edit({}, 'test')
+        
+        self.db.find_one_by.assert_called_once()
+
+    def test_edit_add(self):
+        self.form_data['add_new_button'] = 1
+        shopping_list = self.list_service.edit(self.form_data, "test_name")
+        
+        self.assertEqual(1.0, shopping_list.items[1].quantity)
+
+    def test_edit_edit(self):
+        self.form_data['edit_button'] = 1
+        self.form_data['old_name'] = 'Patate'
+        self.form_data['name'] = 'Potatoe'
+        shopping_list = self.list_service.edit(self.form_data, "test_name")
+        
+        self.assertEqual('Potatoe', shopping_list.items[0].name)
+
+    def test_edit_delete(self):
+        self.form_data['delete_button'] = 1
+        shopping_list = self.list_service.edit(self.form_data, "test_name")
+        
+        self.assertEqual(0, shopping_list.total_quantity())
+
+    def test_edit_rename_list(self):
+        self.form_data['rename_button'] = 1
+        self.form_data['old_name'] = "test_name"
+        self.form_data['name'] = "the_name"
+        shopping_list = self.list_service.edit(self.form_data, "test_name")
+
+        self.assertEqual('the_name', shopping_list.name)

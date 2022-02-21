@@ -129,9 +129,8 @@ class ShoppingListDbTest(unittest.TestCase):
         db = ShoppingListDb(db_conn)
         db.create_one(user_id=42, new_list_name="new")
         db_conn.execute.assert_called_once_with(
-            
-              "INSERT INTO shopping_list (owner_id, content, list_name) VALUES (?, ?, ?)",
-               (42, '{"items":[], "name": "new" }', "new"),
+            "INSERT INTO shopping_list (owner_id, content, list_name) VALUES (?, ?, ?)",
+            (42, '{"items":[], "name": "new" }', "new"),
         )
 
     def test_create_one_commit(self):
